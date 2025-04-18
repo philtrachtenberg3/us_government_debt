@@ -48,7 +48,7 @@ def get_weekly_insights(df):
 @app.route('/')
 def index():
     df = fetch_debt_data()
-    all_years = sorted(df['record_date'].dt.year.unique())  # full list first
+    all_years = sorted(df['record_date'].dt.year.unique(), reverse=True)  # full list first, sorted newest to oldest
 
     year = request.args.get('year')
     if year:

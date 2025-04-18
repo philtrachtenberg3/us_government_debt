@@ -37,5 +37,28 @@ document.addEventListener("DOMContentLoaded", function () {
         maintainAspectRatio: false
       }      
     });
+
+    // ✅ CountUp.js integration
+    const countTarget = document.getElementById("debt-count");
+    
+    if (countTarget) {
+      const rawDebt = parseFloat(countTarget.textContent.replace(/[^0-9.-]+/g, ""));
+      const counter = new countUp.CountUp("debt-count", rawDebt, {
+        duration: 3,
+        separator: ",",
+        decimal: "."
+      });
+      
+    
+      if (!counter.error) {
+        counter.start();
+      } else {
+        console.error("❌ CountUp error:", counter.error);
+      }
+    } else {
+      console.error("❌ Could not find #debt-count in the DOM");
+    }
+    
+
   });
   
