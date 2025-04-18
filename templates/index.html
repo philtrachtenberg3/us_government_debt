@@ -20,9 +20,9 @@
 
     <div class="mb-4">
       <h5>📈 Biggest Weekly Increase:</h5>
-      <p>{{ insights[0][0].strftime('%Y-%m-%d') }}: ${{ '{:,.2f}'.format(insights[0][1]) }}</p>
+      <p>{{ insights[0][0].strftime('%Y-%m-%d') }} - {{ insights[0][1].strftime('%Y-%m-%d') }}: <i>${{ '{:,.2f}'.format(insights[0][2]) }}</i></p>
       <h5>📉 Biggest Weekly Decrease:</h5>
-      <p>{{ insights[1][0].strftime('%Y-%m-%d') }}: ${{ '{:,.2f}'.format(insights[1][1]) }}</p>
+      <p>{{ insights[1][0].strftime('%Y-%m-%d') }} - {{ insights[1][1].strftime('%Y-%m-%d') }}: <i>${{ '{:,.2f}'.format(insights[1][2]) }}</i></p>
     </div>
 
     <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">

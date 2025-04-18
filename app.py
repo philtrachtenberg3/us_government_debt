@@ -19,26 +19,30 @@ def fetch_debt_data():
     return df
 
 def get_weekly_insights(df):
-    # Ensure record_date is datetime
     df['record_date'] = pd.to_datetime(df['record_date'])
-
-    # Sort just in case
     df = df.sort_values('record_date')
-
-    # Set date as index
     df = df.set_index('record_date')
 
-    # Take the *last known value* of each week (Saturday)
     weekly = df['tot_pub_debt_out_amt'].resample('W-SAT').last()
-
-    # Calculate week-to-week changes
     weekly_change = weekly.diff()
 
-    # Get max and min changes
-    max_increase = weekly_change.idxmax(), weekly_change.max()
-    max_decrease = weekly_change.idxmin(), weekly_change.min()
+    max_increase_date = weekly_change.idxmax()
+    max_decrease_date = weekly_change.idxmin()
+
+    max_increase = (
+        max_increase_date - pd.Timedelta(days=6),  # start
+        max_increase_date,                         # end
+        weekly_change.max()
+    )
+
+    max_decrease = (
+        max_decrease_date - pd.Timedelta(days=6),  # start
+        max_decrease_date,                         # end
+        weekly_change.min()
+    )
 
     return max_increase, max_decrease
+
 
 
 @app.route('/')
@@ -50,6 +54,9 @@ def index():
     if year:
         df = df[df['record_date'].dt.year == int(year)]
 
+    df = df.sort_values('record_date', ascending=False) # sort largest to smallest
+
+    # weekly stats
     insights = get_weekly_insights(df)
 
     # Display copy with string dates for frontend rendering
