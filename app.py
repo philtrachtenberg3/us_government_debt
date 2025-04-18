@@ -65,12 +65,19 @@ def index():
 
     years = sorted(df['record_date'].dt.year.unique())
 
+    # Prepare chart data (sorted oldest to newest)
+    chart_df = df.sort_values('record_date', ascending=True)
+    chart_dates = chart_df['record_date'].dt.strftime('%Y-%m-%d').tolist()
+    chart_values = chart_df['tot_pub_debt_out_amt'].tolist()
+
     return render_template(
         'index.html',
         data=df_display.to_dict(orient='records'),
         years=all_years,
         selected_year=year,
-        insights=insights
+        insights=insights,
+        chart_dates=chart_dates,
+        chart_values=chart_values
     )
 
 if __name__ == '__main__':
