@@ -70,6 +70,11 @@ def index():
     chart_dates = chart_df['record_date'].dt.strftime('%Y-%m-%d').tolist()
     chart_values = chart_df['tot_pub_debt_out_amt'].tolist()
 
+    # get most recent debt
+    latest_debt = df.iloc[0]['tot_pub_debt_out_amt']
+    latest_date = df.iloc[0]['record_date'].strftime('%Y-%m-%d')
+
+
     return render_template(
         'index.html',
         data=df_display.to_dict(orient='records'),
@@ -77,7 +82,9 @@ def index():
         selected_year=year,
         insights=insights,
         chart_dates=chart_dates,
-        chart_values=chart_values
+        chart_values=chart_values,
+        latest_debt=latest_debt,
+        latest_date=latest_date
     )
 
 if __name__ == '__main__':

@@ -6,7 +6,14 @@
 </head>
 <body class="p-4">
   <div class="container">
-    <h1 class="mb-4">U.S. Government Debt</h1>
+    <h1 class="mb-4 text-center">U.S. Government Debt</h1>
+
+    <div class="mb-4 text-center">
+        <p class="fs-4 text-danger">
+          As of {{ latest_date }}: <strong>${{ '{:,.2f}'.format(latest_debt) }}</strong>
+        </p>
+    </div>
+      
 
     <form method="get" class="mb-3">
       <label for="year">Filter by Year:</label>
@@ -18,24 +25,37 @@
       </select>
     </form>
 
-    <div class="mb-4">
-      <h5>📈 Biggest Weekly Increase:</h5>
-      <p>{{ insights[0][0].strftime('%Y-%m-%d') }} - {{ insights[0][1].strftime('%Y-%m-%d') }}: <i>${{ '{:,.2f}'.format(insights[0][2]) }}</i></p>
-      <h5>📉 Biggest Weekly Decrease:</h5>
-      <p>{{ insights[1][0].strftime('%Y-%m-%d') }} - {{ insights[1][1].strftime('%Y-%m-%d') }}: <i>${{ '{:,.2f}'.format(insights[1][2]) }}</i></p>
-    </div>
-
-    <div class="mb-5">
-        <h4>📊 Debt Over Time</h4>
-        <div style="position: relative; height: 400px; width: 100%;">
+    
+    <div class="row mb-5">
+        <!-- Chart Column -->
+        <div class="col-md-8">
+          <h4>📊 Debt Over Time</h4>
+          <div style="position: relative; height: 400px; width: 100%;">
             <canvas id="debtChart"></canvas>
-        </div>
-      
-        <!-- Hidden data elements -->
+          </div>
+        
+          <!-- Hidden data elements -->
         <script id="chartDates" type="application/json">{{ chart_dates | tojson }}</script>
         <script id="chartValues" type="application/json">{{ chart_values | tojson }}</script>
-    </div>
+        </div>
       
+        <!-- Stats Column -->
+        <div class="col-md-4">
+          <div class="p-3 border rounded bg-light shadow-sm">
+            <h5 class="fw-bold">📈 Biggest Weekly Increase</h5>
+            <p class="mb-3">
+              {{ insights[0][0].strftime('%Y-%m-%d') }} – {{ insights[0][1].strftime('%Y-%m-%d') }}:<br>
+              <i>${{ '{:,.2f}'.format(insights[0][2]) }}</i>
+            </p>
+      
+            <h5 class="fw-bold">📉 Biggest Weekly Decrease</h5>
+            <p>
+              {{ insights[1][0].strftime('%Y-%m-%d') }} – {{ insights[1][1].strftime('%Y-%m-%d') }}:<br>
+              <i>${{ '{:,.2f}'.format(insights[1][2]) }}</i>
+            </p>
+          </div>
+        </div>
+      </div>
       
 
     <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
