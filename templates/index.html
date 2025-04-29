@@ -35,6 +35,19 @@
         <p class="fs-3 {{ countdown_color_class }}">
           <strong>$<span id="countdown-debt">{{ '{:,.2f}'.format(debt_to_target) }}</span></strong> remaining
         </p>
+        <!-- Progress bar -->
+        <div class="mt-3">
+          <div class="progress" style="height: 20px;">
+            <div class="progress-bar" role="progressbar"
+              style="width: {{ progress_to_target }}%;"
+              aria-valuenow="{{ progress_to_target }}"
+              aria-valuemin="0"
+              aria-valuemax="100">
+              {{ '{:.1f}'.format(progress_to_target) }}%
+            </div>
+          </div>
+        </div>
+        
       </div>
     </div>
 

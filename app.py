@@ -74,6 +74,10 @@ def index():
     latest_debt = df.iloc[0]['tot_pub_debt_out_amt']
     latest_date = df.iloc[0]['record_date'].strftime('%Y-%m-%d')
 
+    # Progress toward 37 trillion
+    progress_to_target = (latest_debt / 37_000_000_000_000) * 100
+    progress_to_target = min(progress_to_target, 100)  # cap at 100%
+
     # Countdown to 37 trillion
     target_debt = 37_000_000_000_000
     debt_to_target = target_debt - latest_debt
@@ -98,7 +102,8 @@ def index():
         latest_debt=latest_debt,
         latest_date=latest_date,
         debt_to_target=debt_to_target,
-        countdown_color_class=countdown_color_class
+        countdown_color_class=countdown_color_class,
+        progress_to_target=progress_to_target
     )
 
 if __name__ == '__main__':
