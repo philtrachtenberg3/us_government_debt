@@ -58,6 +58,28 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       console.error("❌ Could not find #debt-count in the DOM");
     }
+
+    // countdown target
+
+    const countdownTarget = document.getElementById("countdown-debt");
+
+    if (countdownTarget) {
+      const rawCountdown = parseFloat(countdownTarget.textContent.replace(/[^0-9.-]+/g, ""));
+      const countdownCounter = new countUp.CountUp("countdown-debt", rawCountdown, {
+        startVal: 2_000_000_000_000,
+        duration: 3,
+        separator: ",",
+        decimal: "."
+      });
+
+      if (!countdownCounter.error) {
+        countdownCounter.start();
+      } else {
+        console.error("❌ Countdown CountUp error:", countdownCounter.error);
+      }
+    }
+
+    
     
 
   });

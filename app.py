@@ -74,6 +74,18 @@ def index():
     latest_debt = df.iloc[0]['tot_pub_debt_out_amt']
     latest_date = df.iloc[0]['record_date'].strftime('%Y-%m-%d')
 
+    # Countdown to 37 trillion
+    target_debt = 37_000_000_000_000
+    debt_to_target = target_debt - latest_debt
+
+    # Determine countdown color class
+    if debt_to_target <= 100_000_000_000:
+        countdown_color_class = 'text-danger'  # bright red if less than $100B
+    elif debt_to_target <= 500_000_000_000:
+        countdown_color_class = 'text-warning'  # orange-ish if less than $500B
+    else:
+        countdown_color_class = ''  # normal black if more than $500B
+
 
     return render_template(
         'index.html',
@@ -84,7 +96,9 @@ def index():
         chart_dates=chart_dates,
         chart_values=chart_values,
         latest_debt=latest_debt,
-        latest_date=latest_date
+        latest_date=latest_date,
+        debt_to_target=debt_to_target,
+        countdown_color_class=countdown_color_class
     )
 
 if __name__ == '__main__':
