@@ -47,49 +47,45 @@ def get_weekly_insights(df):
 
 @app.route('/')
 def index():
-    df = fetch_debt_data()
-    all_years = sorted(df['record_date'].dt.year.unique(), reverse=True)  # full list first, sorted newest to oldest
+    df_all = fetch_debt_data()  # full unfiltered dataset
+    all_years = sorted(df_all['record_date'].dt.year.unique(), reverse=True)
 
+    # --- Static header values from unfiltered data ---
+    latest_debt = df_all.iloc[-1]['tot_pub_debt_out_amt']
+    latest_date = df_all.iloc[-1]['record_date'].strftime('%Y-%m-%d')
+
+    target_debt = 37_000_000_000_000
+    debt_to_target = target_debt - latest_debt
+
+    progress_to_target = (latest_debt / target_debt) * 100
+    progress_to_target = min(progress_to_target, 100)
+
+    if debt_to_target <= 100_000_000_000:
+        countdown_color_class = 'text-danger'
+    elif debt_to_target <= 500_000_000_000:
+        countdown_color_class = 'text-warning'
+    else:
+        countdown_color_class = ''
+
+    # --- Filtered data for chart and table ---
+    df = df_all.copy()
     year = request.args.get('year')
     if year:
         df = df[df['record_date'].dt.year == int(year)]
 
-    df = df.sort_values('record_date', ascending=False) # sort largest to smallest
+    df = df.sort_values('record_date', ascending=False)
 
-    # weekly stats
+    # Weekly insights based on filtered data
     insights = get_weekly_insights(df)
 
-    # Display copy with string dates for frontend rendering
+    # Table data (string format)
     df_display = df.copy()
     df_display['record_date'] = df_display['record_date'].dt.strftime('%Y-%m-%d')
 
-    years = sorted(df['record_date'].dt.year.unique())
-
-    # Prepare chart data (sorted oldest to newest)
+    # Chart data (oldest to newest)
     chart_df = df.sort_values('record_date', ascending=True)
     chart_dates = chart_df['record_date'].dt.strftime('%Y-%m-%d').tolist()
     chart_values = chart_df['tot_pub_debt_out_amt'].tolist()
-
-    # get most recent debt
-    latest_debt = df.iloc[0]['tot_pub_debt_out_amt']
-    latest_date = df.iloc[0]['record_date'].strftime('%Y-%m-%d')
-
-    # Progress toward 37 trillion
-    progress_to_target = (latest_debt / 37_000_000_000_000) * 100
-    progress_to_target = min(progress_to_target, 100)  # cap at 100%
-
-    # Countdown to 37 trillion
-    target_debt = 37_000_000_000_000
-    debt_to_target = target_debt - latest_debt
-
-    # Determine countdown color class
-    if debt_to_target <= 100_000_000_000:
-        countdown_color_class = 'text-danger'  # bright red if less than $100B
-    elif debt_to_target <= 500_000_000_000:
-        countdown_color_class = 'text-warning'  # orange-ish if less than $500B
-    else:
-        countdown_color_class = ''  # normal black if more than $500B
-
 
     return render_template(
         'index.html',
@@ -102,9 +98,10 @@ def index():
         latest_debt=latest_debt,
         latest_date=latest_date,
         debt_to_target=debt_to_target,
-        countdown_color_class=countdown_color_class,
-        progress_to_target=progress_to_target
+        progress_to_target=progress_to_target,
+        countdown_color_class=countdown_color_class
     )
+
 
 if __name__ == '__main__':
     app.run(debug=True)
