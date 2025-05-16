@@ -1,30 +1,54 @@
 {% extends "base.html" %}
 
+{% block title %}What Is National Debt?{% endblock %}
+
 {% block content %}
 <div class="container py-5">
-  <h1 class="mb-4 text-center">📘 What Is National Debt?</h1>
+  <h1 class="text-center mb-4">📘 What Is National Debt?</h1>
 
-  <p class="lead">
-    National debt is the total amount the U.S. federal government owes to creditors. It represents years of borrowing to fund wars, infrastructure, social programs, and bailouts.
-  </p>
+  <div class="mb-4">
+    <p class="lead">
+      National debt is the total amount the U.S. government owes to its creditors—ranging from individuals to foreign governments. But the meaning and role of debt go far beyond spreadsheets and treasury bills.
+    </p>
+    <p>
+      In *Debt: The First 5,000 Years*, anthropologist David Graeber argues that debt is not merely an economic concept—it's a moral and political one. Debt has historically been used to structure power, justify conquest, and enforce social obligations.
+    </p>
+  </div>
 
-  <hr>
+  <div class="bg-light p-4 rounded shadow-sm mb-4">
+    <blockquote class="blockquote mb-0">
+      “The fact that we don't know what debt is, and yet it's central to everything, is telling.”
+      <footer class="blockquote-footer mt-2">David Graeber, <cite title="Debt: The First 5,000 Years">Debt: The First 5,000 Years</cite></footer>
+    </blockquote>
+  </div>
 
-  <blockquote class="blockquote text-muted">
-    “The fact that we don't know what debt is, and yet it's central to everything, is telling.”  
-    <footer class="blockquote-footer">David Graeber, <cite title="Debt: The First 5,000 Years">Debt: The First 5,000 Years</cite></footer>
-  </blockquote>
-
-  <p>
-    Debt is not just an economic number — it's also a social and political structure. Graeber reminds us that debt reflects relationships, power, and historical context. The U.S. national debt isn't just a fiscal concern; it's tied to military spending, tax policy, and financial institutions.
-  </p>
-
-  <h3 class="mt-5">💡 Did You Know?</h3>
+  <h3 class="mt-5">💡 Debt in the United States</h3>
   <ul>
-    <li>The U.S. government has only been debt-free for one year: 1835 under Andrew Jackson.</li>
-    <li>Almost every modern country carries some form of national debt.</li>
-    <li>Wars — especially World Wars I & II — were major inflection points in debt expansion.</li>
+    <li>The U.S. government borrows money by issuing Treasury securities.</li>
+    <li>Most of the debt is held domestically—by individuals, banks, pension funds, and the Federal Reserve.</li>
+    <li>National debt grows when government spending exceeds tax revenue.</li>
+    <li>Some economists argue that the national debt is not inherently bad—it's a tool for economic stability, wartime financing, and long-term investment.</li>
   </ul>
 
+  <h3 class="mt-5">🔍 A Deeper Perspective</h3>
+  <p>
+    Graeber suggests that the language of debt often hides political choices behind a façade of inevitability. When politicians say “we can’t afford it,” they're invoking debt as a limiting myth—one that shapes public imagination about what's possible.
+  </p>
+  <p>
+    What if we understood public debt not as a burden, but as a shared investment in the future?
+  </p>
+
+  <div class="bg-warning-subtle p-4 rounded mt-5">
+    <p class="mb-1"><strong>📚 Want to learn more?</strong></p>
+    <ul class="mb-0">
+      <li><a href="https://en.wikipedia.org/wiki/United_States_public_debt" target="_blank">U.S. Public Debt – Wikipedia</a></li>
+      <li><a href="https://fiscaldata.treasury.gov/" target="_blank">U.S. Fiscal Data Dashboard</a></li>
+      <li><a href="https://bookshop.org/p/books/debt-updated-and-expanded-the-first-5-000-years-david-graeber/18210445" target="_blank">*Debt* by David Graeber</a></li>
+    </ul>
+  </div>
+
+  <div class="mt-4 text-center">
+    <a href="/" class="btn btn-dark mt-3">← Back to Dashboard</a>
+  </div>
 </div>
 {% endblock %}
