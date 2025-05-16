@@ -102,6 +102,10 @@ def index():
         countdown_color_class=countdown_color_class
     )
 
+@app.route('/info-page')
+def what_is_national_debt():
+    return render_template('info-page.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
