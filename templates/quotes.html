@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Quotes about Debt{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h1 class="text-center mb-4">💬 Quotes from <em>Debt</em> by David Graeber</h1>
+  <p class="lead text-center mb-5">Reflections on the history, politics, and morality of money.</p>
+
+  <div class="row">
+    {% for quote in quotes %}
+    <div class="col-md-6 mb-4">
+      <div class="border rounded p-4 bg-light shadow-sm h-100">
+        <blockquote class="blockquote mb-3">
+          <p class="mb-0">“{{ quote.text }}”</p>
+        </blockquote>
+        <footer class="blockquote-footer">{{ quote.source }}</footer>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="/" class="btn btn-dark">← Back to Dashboard</a>
+  </div>
+</div>
+{% endblock %}

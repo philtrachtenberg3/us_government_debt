@@ -106,6 +106,33 @@ def index():
 def what_is_national_debt():
     return render_template('info-page.html')
 
+@app.route('/quotes')
+def graeber_quotes():
+    quotes = [
+        {
+            "text": "The fact that we don't know what debt is, and yet it's central to everything, is telling.",
+            "source": "Debt: The First 5,000 Years"
+        },
+        {
+            "text": "Debt is a promise corrupted by mathematics and violence.",
+            "source": "Debt: The First 5,000 Years"
+        },
+        {
+            "text": "There’s no better way to justify inequality than by pretending it’s the result of a fair debt system.",
+            "source": "Debt: The First 5,000 Years"
+        },
+        {
+            "text": "If history shows anything, it’s that there’s no better way to justify relations founded on violence than by reframing them in the language of debt.",
+            "source": "Debt: The First 5,000 Years"
+        },
+        {
+            "text": "What is a debt, anyway? A promise? A sin? A moral obligation? An IOU? The answer: all of the above.",
+            "source": "Debt: The First 5,000 Years"
+        }
+    ]
+    return render_template('quotes.html', quotes=quotes)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
